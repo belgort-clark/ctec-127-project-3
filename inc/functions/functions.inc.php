@@ -11,15 +11,15 @@ function display_message(){
 
 
 function display_letter_filters($filter){  
-    echo '<span class="mr-3">Filter by <strong>Last Name</strong></span>';
+    echo '<span class="d-inline-block mr-3">Filter by <strong>Last Name</strong></span>';
  
     $letters = range('A','Z');
 
     for($i=0 ; $i < count($letters) ; $i++){ 
         if ($filter == $letters[$i]) {
-            $class = 'class="text-light font-weight-bold p-1 mr-3 bg-dark"';
+            $class = 'class="d-inline-block text-light font-weight-bold p-1 mr-3 bg-dark"';
         } else {
-            $class = 'class="text-secondary p-1 mr-3 bg-light border rounded"';
+            $class = 'class="d-inline-block text-secondary p-1 mr-3 bg-light border rounded"';
         }
         echo "<u><a $class href='?filter=$letters[$i]' title='$letters[$i]'>$letters[$i]</a></u>";
     }

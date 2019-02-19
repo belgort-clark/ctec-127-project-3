@@ -15,32 +15,32 @@ Let's first explore the file and folder structure of the application. Your instr
 ## File and Folder Structure
 
 - css
-	- bootstrap.min.css
-	- style.css
+  - bootstrap.min.css
+  - style.css
 - img
-	- frown.png
-	- nosmile.png
+  - frown.png
+  - nosmile.png
 - inc
-	- app
-		- config.inc.php
-	- create
-		- content.inc.php
-		- form.inc.php
-	- db
-		- mysqli_connect.inc.php
-	- display
-		- content.inc.php
-	- functions
-		- functions.inc.php
-	- layout
-		- footer.inc.php
-		- header.inc.php
-		- navbar.inc.php
+  - app
+    - config.inc.php
+  - create
+    - content.inc.php
+    - form.inc.php
+  - db
+    - mysqli_connect.inc.php
+  - display
+    - content.inc.php
+  - functions
+    - functions.inc.php
+  - layout
+    - footer.inc.php
+    - header.inc.php
+    - navbar.inc.php
 - js
-	- bootstrap.min.js
-	- query-3.3.1.min.js
+  - bootstrap.min.js
+  - query-3.3.1.min.js
 - sql
-	- student_v2.sql
+  - student_v2.sql
 - create-record.php
 - delete-record.php
 - display-records.php
@@ -62,6 +62,7 @@ The folders for **css**, **img** and **js** are self explanatory.
 The **db** folder is used for the **mysqli_connect.inc.php** that allows the entire application to connect to the **MySQL (MariaDB)** database.
 
 The **inc** folders and **subfolders** have the following sub-folders:
+
 - **app** is used to store a PHP file that stores variables that are used throughout the application.
 - **create** contains the files that are included in the **create-record.php** page.
 - **display** contains a file that gets included in the **display-records.php** page.
@@ -70,7 +71,7 @@ The **inc** folders and **subfolders** have the following sub-folders:
 
 ## Before You Begin
 
-**READ THE INFO IN THE PARAGRAPH BELOW BEFORE TOUCHING YOUR phpMyAdmin**
+## READ THE INFO IN THE PARAGRAPH BELOW BEFORE TOUCHING YOUR phpMyAdmin
 
 This project will have you create a **new table** in your **ctec database**. The name of the new table will be **student_v2**. There is an **SQL export file** in the **sql folder** that you you should use to create and load the table with data.
 
@@ -83,7 +84,6 @@ This project will have you create a **new table** in your **ctec database**. The
 - Copy and paste all of the data from the student_v2.sql file in the **sql** folder and then click on the **Go** button.
 - The new table will be created and 100 rows of data will be inserted into the table for you.
 - Verify that this worked correctly by clicking on **Browse** in phpMyAdmin.
-- 
 
 ## What You Need to Do
 
@@ -95,7 +95,7 @@ The database table contains new columns:
 - **degree_program** - This will contain the name of the degree program that they are currently enrolled in.
 - **date_created** - This column is a timestamp and is automatically created by the database when a new record is inserted.
 
-## So here's the deal...
+## So here's the deal
 
 1. Modify the create_record.php and any other associated files to include form fields for:
     - The **gpa** field (A number)
