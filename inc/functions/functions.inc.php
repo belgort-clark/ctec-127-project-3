@@ -35,7 +35,7 @@ function display_record_table($result){
     while ($row = $result->fetch_assoc()){
         # display rows and columns of data
         echo '<tr>';
-        echo "<td>Update&nbsp;&nbsp;|&nbsp;&nbsp;<a href=\"delete-record.php?id={$row['id']}\" onclick=\"return confirm('Are you sure?');\">Delete</a></td>";
+        echo "<td><a href=\"update-record.php?id={$row['id']}\">Update</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href=\"delete-record.php?id={$row['id']}\" onclick=\"return confirm('Are you sure?');\">Delete</a></td>";
         echo "<td>{$row['student_id']}</td>";
         echo "<td><strong>{$row['first_name']}</strong></td>";
         echo "<td><strong>{$row['last_name']}</strong></td>";

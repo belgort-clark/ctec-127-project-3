@@ -9,6 +9,11 @@ $error_bucket = [];
 // http://php.net/manual/en/mysqli.real-escape-string.php
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
+    // grab primary key
+    if (empty($_POST['id'])) {
+        $id = $_POST['id'];
+    }
+
     // First insure that all required fields are filled in
     if (empty($_POST['first'])) {
         array_push($error_bucket,"<p>A first name is required.</p>");
@@ -24,11 +29,11 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         #$last = $_POST['last'];
         $last = $db->real_escape_string($_POST['last']);
     }
-    if (empty($_POST['sid'])) {
+    if (empty($_POST['id'])) {
         array_push($error_bucket,"<p>A student ID is required.</p>");
     } else {
         #$id = $_POST['id'];
-        $sid = $db->real_escape_string($_POST['sid']);
+        $id = $db->real_escape_string($_POST['id']);
     }
     if (empty($_POST['email'])) {
         array_push($error_bucket,"<p>An email address is required.</p>");
@@ -46,9 +51,12 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {
         // Time for some SQL
-        $sql = "INSERT INTO $db_table (first_name,last_name,student_id,email,phone) ";
-        $sql .= "VALUES ('$first','$last',$sid,'$email','$phone')";
-
+        // $sql = "INSERT INTO $db_table (first_name,last_name,student_id,email,phone) ";
+        // $sql .= "VALUES ('$first','$last',$id,'$email','$phone')";
+        // UPDATE $db_table SET first_name = value1, column2 = value2, ...
+        // WHERE id = $id;
+        $sql = "UPDATE $db_table SET first_name='$first', last_name='$last', student_id=$id, email='$email',phone='$phone' WHERE id=$id";
+        echo $sql;
         // comment in for debug of SQL
         // echo $sql;
 
@@ -63,12 +71,25 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
           </div>';
             unset($first);
             unset($last);
-            unset($sid);
+            unset($id);
             unset($email);
             unset($phone);
         }
     } else {
         display_error_bucket($error_bucket);
+    }
+} else {
+    // check for record id
+    $id = $_GET['id'];
+    // now we need to query the database and get the data for the record
+    $sql = "SELECT * FROM $db_table WHERE id=$id LIMIT 1";
+    $result = $db->query($sql);
+    while($row = $result->fetch_assoc()) {
+        $first = $row['first_name'];
+        $last = $row['last_name'];
+        $sid = $row['student_id'];
+        $email = $row['email'];
+        $phone = $row['phone'];
     }
 }
 
