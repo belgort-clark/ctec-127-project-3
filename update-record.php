@@ -8,7 +8,7 @@ require 'inc/layout/header.inc.php';
 		<div class="col-lg-12">
 			<h1>Update Record</h1>
 			<?php require __DIR__ .'/inc/update/content.inc.php'; ?>
-			<?php require __DIR__ .'/inc/create/form.inc.php' ?>
+			<?php require __DIR__ .'/inc/shared/form.inc.php' ?>
 		</div>
     </div>
 </div>

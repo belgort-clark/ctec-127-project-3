@@ -9,11 +9,10 @@ $error_bucket = [];
 // http://php.net/manual/en/mysqli.real-escape-string.php
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
-    // grab primary key
-    if (empty($_POST['id'])) {
+    // grab primary key from hidden field
+    if (!empty($_POST['id'])) {
         $id = $_POST['id'];
     }
-
     // First insure that all required fields are filled in
     if (empty($_POST['first'])) {
         array_push($error_bucket,"<p>A first name is required.</p>");
@@ -29,11 +28,11 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         #$last = $_POST['last'];
         $last = $db->real_escape_string($_POST['last']);
     }
-    if (empty($_POST['id'])) {
+    if (empty($_POST['sid'])) {
         array_push($error_bucket,"<p>A student ID is required.</p>");
     } else {
         #$id = $_POST['id'];
-        $id = $db->real_escape_string($_POST['id']);
+        $sid = $db->real_escape_string($_POST['sid']);
     }
     if (empty($_POST['email'])) {
         array_push($error_bucket,"<p>An email address is required.</p>");
@@ -51,12 +50,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {
         // Time for some SQL
-        // $sql = "INSERT INTO $db_table (first_name,last_name,student_id,email,phone) ";
-        // $sql .= "VALUES ('$first','$last',$id,'$email','$phone')";
-        // UPDATE $db_table SET first_name = value1, column2 = value2, ...
-        // WHERE id = $id;
-        $sql = "UPDATE $db_table SET first_name='$first', last_name='$last', student_id=$id, email='$email',phone='$phone' WHERE id=$id";
-        echo $sql;
+        $sql = "UPDATE $db_table SET first_name='$first', last_name='$last', student_id=$sid, email='$email',phone='$phone' WHERE id=$id";
         // comment in for debug of SQL
         // echo $sql;
 
@@ -71,19 +65,23 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
           </div>';
             unset($first);
             unset($last);
-            unset($id);
+            unset($sid);
             unset($email);
             unset($phone);
+            unset($id);
         }
     } else {
         display_error_bucket($error_bucket);
-    }
+    } // end of error bucket
 } else {
-    // check for record id
+    // check for record id (primary key)
     $id = $_GET['id'];
     // now we need to query the database and get the data for the record
+    // note limit 1
     $sql = "SELECT * FROM $db_table WHERE id=$id LIMIT 1";
+    // query database
     $result = $db->query($sql);
+    // get the one row of data
     while($row = $result->fetch_assoc()) {
         $first = $row['first_name'];
         $last = $row['last_name'];
@@ -92,5 +90,3 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         $phone = $row['phone'];
     }
 }
-
-?>
